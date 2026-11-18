@@ -1,0 +1,23 @@
+{
+  "name": "math-pdf-to-word",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Math-first PDF to editable Word SaaS — monorepo root",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:schema-gate": "turbo run test --filter=@mathpipe/document-model",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.5.0"
+  }
+}

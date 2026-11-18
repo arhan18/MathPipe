@@ -1,0 +1,10 @@
+# Runtime (pinned after benchmark; see docs/model-benchmark.md).
+# Marker / Docling / math-OCR models are intentionally NOT listed here:
+# they enter only after the license gate (§9) approves exact versions.
+pypdf==6.19.0
+pdfplumber==0.11.10
+pdfminer.six==20260107
+pillow==12.3.0
+pypdfium2==5.14.0
+python-docx==1.2.0
+jsonschema==4.26.0

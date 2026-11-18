@@ -1,0 +1,68 @@
+{
+  "document": {
+    "id": "917beaf4c78d2a91",
+    "metadata": {
+      "classification": "BORN_DIGITAL",
+      "pageCount": 1,
+      "producer": "scaffold-0.1",
+      "sourceName": "algebra-two-column.pdf"
+    },
+    "pages": [
+      {
+        "blocks": [
+          {
+            "bbox": [
+              54.0,
+              57.7,
+              275.7,
+              154.1
+            ],
+            "confidence": 0.99,
+            "content": "Quadratic Equations The quadratic formula solves ax^2 + bx + c = 0 for any real coefficients. Left column first. It must read before the right column. x = (-b +- sqrt(b^2 - 4ac)) / 2a",
+            "id": "p1-b0",
+            "mathHint": {
+              "note": "inline math suspected; inline splitting lands with the ML stage",
+              "score": 0.68
+            },
+            "provenance": {
+              "page": 1,
+              "source": "scaffold-0.1"
+            },
+            "readingOrder": 1,
+            "style": {
+              "bold": true,
+              "fontSize": 10.4
+            },
+            "type": "paragraph"
+          },
+          {
+            "bbox": [
+              324.0,
+              56.1,
+              540.2,
+              90.1
+            ],
+            "confidence": 0.99,
+            "content": "Right gutter column only after second. the left Reading column order ends. crosses the Matrices appear inline: [a b; c d] for testing.",
+            "id": "p1-b1",
+            "provenance": {
+              "page": 1,
+              "source": "scaffold-0.1"
+            },
+            "readingOrder": 2,
+            "style": {
+              "bold": false,
+              "fontSize": 10.0
+            },
+            "type": "paragraph"
+          }
+        ],
+        "height": 792.0,
+        "pageNumber": 1,
+        "rotation": 0,
+        "width": 612.0
+      }
+    ]
+  },
+  "schemaVersion": "document-model/v0.1-partial"
+}

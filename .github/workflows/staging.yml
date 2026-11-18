@@ -1,0 +1,25 @@
+name: Staging deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Smoke tests
+        run: echo "Phase 1+ wires staging smoke tests here"
+      - name: Representative document tests
+        run: echo "Phase 10 wires golden-corpus tests here"

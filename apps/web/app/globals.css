@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@import "@designcodeio/threeui/style.css";
+
+@theme {
+  --color-ink: #07080c;
+  --color-ink-soft: #0d0f16;
+  --color-paper: #f4f2ec;
+  --color-accent: #6ea8ff;
+  --color-accent-warm: #ffb86b;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* shadcn tokens (dark) — required by Button / PricingCards */
+  --color-background: #07080c;
+  --color-foreground: #ece9e2;
+  --color-primary: #ece9e2;
+  --color-primary-foreground: #07080c;
+  --color-secondary: #1a1d27;
+  --color-secondary-foreground: #ece9e2;
+  --color-muted: #1a1d27;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent-foreground: #07080c;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #fafafa;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-input: rgba(255, 255, 255, 0.15);
+  --color-ring: #6ea8ff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: #ece9e2;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Host frame for ThreeUI showcase components (consumer-defined). */
+.shader-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inset site header: clips the dock showcase to bar height. */
+.mp-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 104px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mp-header .animated-top-dock-component {
+  height: 104px;
+  min-height: 104px;
+  place-items: start center;
+}
+
+/* Center the bar vertically so magnified items have room to grow downward
+   (base bar ≈ 48–68px + ~20px hover growth needs ≈ 22px clearance). */
+.mp-header .atd-modern__bar {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Dock typography: Inter replaces the fallback stack (header structure untouched). */
+.mp-header .atd-modern__bar,
+.mp-header .atd-modern__dock,
+.mp-header .atd-modern__actions {
+  font-family: "Inter", -apple-system, "Segoe UI", sans-serif;
+}
+
+.mp-header .atd-modern__word {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Ghost renders as a link here (authored CSS targets a <button>), so restore
+   the action-height box with flex centering to match the CTA. */
+.mp-header .atd-modern__ghost {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

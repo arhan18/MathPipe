@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.next/
+.open-next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+apps/processor/.venv/
+
+# Env / secrets — NEVER commit real keys
+.env
+.env.local
+.env.*.local
+.dev.vars
+.dev.vars.*
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Test artifacts
+coverage/
+.nyc_output/
+
+# Local tooling
+*.log
+# macOS metadata
+._*
+.DS_Store
+
+# Local run artifacts
+job-*/
+backups/

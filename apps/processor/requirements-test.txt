@@ -1,0 +1,2 @@
+# Test-only: generates golden-corpus fixture PDFs locally.
+reportlab==5.0.1

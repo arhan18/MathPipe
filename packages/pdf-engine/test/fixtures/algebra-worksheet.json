@@ -1,0 +1,228 @@
+{
+  "document": {
+    "id": "687f90eb1378d501",
+    "metadata": {
+      "classification": "BORN_DIGITAL",
+      "pageCount": 1,
+      "producer": "scaffold-0.1",
+      "sourceName": "algebra-worksheet.pdf"
+    },
+    "pages": [
+      {
+        "blocks": [
+          {
+            "bbox": [
+              54.0,
+              57.7,
+              218.0,
+              94.1
+            ],
+            "confidence": 0.99,
+            "content": "Algebra Worksheet Solve each equation. Show all steps.",
+            "id": "p1-b0",
+            "provenance": {
+              "page": 1,
+              "source": "scaffold-0.1"
+            },
+            "readingOrder": 1,
+            "style": {
+              "bold": true,
+              "fontSize": 12.0
+            },
+            "type": "paragraph"
+          },
+          {
+            "bbox": [
+              54.0,
+              120.1,
+              136.3,
+              130.1
+            ],
+            "confidence": 0.97,
+            "content": "1. x^2 + 3x + 2 = 0",
+            "id": "p1-b1",
+            "itemLabel": "1.",
+            "latex": "x^2 + 3x + 2 = 0",
+            "mathir": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "base": {
+                              "type": "text",
+                              "value": "x"
+                            },
+                            "script": {
+                              "type": "text",
+                              "value": "2"
+                            },
+                            "type": "superscript"
+                          },
+                          {
+                            "children": [],
+                            "symbol": "+",
+                            "type": "operator"
+                          },
+                          {
+                            "children": [
+                              {
+                                "type": "text",
+                                "value": "3"
+                              },
+                              {
+                                "type": "text",
+                                "value": "x"
+                              }
+                            ],
+                            "type": "row"
+                          }
+                        ],
+                        "type": "row"
+                      },
+                      {
+                        "children": [],
+                        "symbol": "+",
+                        "type": "operator"
+                      },
+                      {
+                        "type": "text",
+                        "value": "2"
+                      }
+                    ],
+                    "type": "row"
+                  },
+                  {
+                    "children": [],
+                    "symbol": "=",
+                    "type": "operator"
+                  },
+                  {
+                    "type": "text",
+                    "value": "0"
+                  }
+                ],
+                "type": "row"
+              },
+              "schemaVersion": "1.0"
+            },
+            "mathirHash": "20ee2ac6bf62ca51",
+            "provenance": {
+              "page": 1,
+              "source": "scaffold-0.1"
+            },
+            "readingOrder": 2,
+            "recognizer": "deterministic-ascii-0.1",
+            "routing": "accept",
+            "style": {
+              "bold": false,
+              "fontSize": 10.0
+            },
+            "type": "equation"
+          },
+          {
+            "bbox": [
+              54.0,
+              156.1,
+              139.3,
+              166.1
+            ],
+            "confidence": 0.97,
+            "content": "2. (x + 1)(x + 2) = 0",
+            "id": "p1-b2",
+            "itemLabel": "2.",
+            "latex": "(x + 1)(x + 2) = 0",
+            "mathir": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "child": {
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "x"
+                            },
+                            {
+                              "children": [],
+                              "symbol": "+",
+                              "type": "operator"
+                            },
+                            {
+                              "type": "text",
+                              "value": "1"
+                            }
+                          ],
+                          "type": "row"
+                        },
+                        "left": "(",
+                        "right": ")",
+                        "type": "fence"
+                      },
+                      {
+                        "child": {
+                          "children": [
+                            {
+                              "type": "text",
+                              "value": "x"
+                            },
+                            {
+                              "children": [],
+                              "symbol": "+",
+                              "type": "operator"
+                            },
+                            {
+                              "type": "text",
+                              "value": "2"
+                            }
+                          ],
+                          "type": "row"
+                        },
+                        "left": "(",
+                        "right": ")",
+                        "type": "fence"
+                      }
+                    ],
+                    "type": "row"
+                  },
+                  {
+                    "children": [],
+                    "symbol": "=",
+                    "type": "operator"
+                  },
+                  {
+                    "type": "text",
+                    "value": "0"
+                  }
+                ],
+                "type": "row"
+              },
+              "schemaVersion": "1.0"
+            },
+            "mathirHash": "3263cf75549e687a",
+            "provenance": {
+              "page": 1,
+              "source": "scaffold-0.1"
+            },
+            "readingOrder": 3,
+            "recognizer": "deterministic-ascii-0.1",
+            "routing": "accept",
+            "style": {
+              "bold": false,
+              "fontSize": 10.0
+            },
+            "type": "equation"
+          }
+        ],
+        "height": 792.0,
+        "pageNumber": 1,
+        "rotation": 0,
+        "width": 612.0
+      }
+    ]
+  },
+  "schemaVersion": "document-model/v0.1-partial"
+}

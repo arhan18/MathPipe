@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "math-ir://schema/v1.0",
+  "title": "MathIR v1.0",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "root"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "root": {
+      "$ref": "#/$defs/node"
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "const": "text"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "node": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/text"
+        },
+        {
+          "$ref": "#/$defs/row"
+        },
+        {
+          "$ref": "#/$defs/fraction"
+        },
+        {
+          "$ref": "#/$defs/superscript"
+        },
+        {
+          "$ref": "#/$defs/subscript"
+        },
+        {
+          "$ref": "#/$defs/root"
+        },
+        {
+          "$ref": "#/$defs/operator"
+        },
+        {
+          "$ref": "#/$defs/function"
+        },
+        {
+          "$ref": "#/$defs/matrix"
+        },
+        {
+          "$ref": "#/$defs/cases"
+        },
+        {
+          "$ref": "#/$defs/fence"
+        },
+        {
+          "$ref": "#/$defs/accent"
+        },
+        {
+          "$ref": "#/$defs/limit"
+        },
+        {
+          "$ref": "#/$defs/underover"
+        }
+      ]
+    },
+    "row": {
+      "type": "object",
+      "required": [
+        "type",
+        "children"
+      ],
+      "properties": {
+        "type": {
+          "const": "row"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "fraction": {
+      "type": "object",
+      "required": [
+        "type",
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "type": {
+          "const": "fraction"
+        },
+        "numerator": {
+          "$ref": "#/$defs/node"
+        },
+        "denominator": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "superscript": {
+      "type": "object",
+      "required": [
+        "type",
+        "base",
+        "script"
+      ],
+      "properties": {
+        "type": {
+          "const": "superscript"
+        },
+        "base": {
+          "$ref": "#/$defs/node"
+        },
+        "script": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "subscript": {
+      "type": "object",
+      "required": [
+        "type",
+        "base",
+        "script"
+      ],
+      "properties": {
+        "type": {
+          "const": "subscript"
+        },
+        "base": {
+          "$ref": "#/$defs/node"
+        },
+        "script": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "root": {
+      "type": "object",
+      "required": [
+        "type",
+        "radicand"
+      ],
+      "properties": {
+        "type": {
+          "const": "root"
+        },
+        "degree": {
+          "$ref": "#/$defs/node"
+        },
+        "radicand": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "operator": {
+      "type": "object",
+      "required": [
+        "type",
+        "symbol",
+        "children"
+      ],
+      "properties": {
+        "type": {
+          "const": "operator"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "function": {
+      "type": "object",
+      "required": [
+        "type",
+        "name",
+        "arguments"
+      ],
+      "properties": {
+        "type": {
+          "const": "function"
+        },
+        "name": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "matrix": {
+      "type": "object",
+      "required": [
+        "type",
+        "rows"
+      ],
+      "properties": {
+        "type": {
+          "const": "matrix"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/node"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "object",
+      "required": [
+        "type",
+        "cases"
+      ],
+      "properties": {
+        "type": {
+          "const": "cases"
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "expression",
+              "condition"
+            ],
+            "properties": {
+              "expression": {
+                "$ref": "#/$defs/node"
+              },
+              "condition": {
+                "$ref": "#/$defs/node"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "fence": {
+      "type": "object",
+      "required": [
+        "type",
+        "left",
+        "right",
+        "child"
+      ],
+      "properties": {
+        "type": {
+          "const": "fence"
+        },
+        "left": {
+          "type": "string"
+        },
+        "right": {
+          "type": "string"
+        },
+        "child": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "accent": {
+      "type": "object",
+      "required": [
+        "type",
+        "kind",
+        "child"
+      ],
+      "properties": {
+        "type": {
+          "const": "accent"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "child": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "limit": {
+      "type": "object",
+      "required": [
+        "type",
+        "base",
+        "lower",
+        "upper"
+      ],
+      "properties": {
+        "type": {
+          "const": "limit"
+        },
+        "base": {
+          "$ref": "#/$defs/node"
+        },
+        "lower": {
+          "$ref": "#/$defs/node"
+        },
+        "upper": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    },
+    "underover": {
+      "type": "object",
+      "required": [
+        "type",
+        "base",
+        "under",
+        "over"
+      ],
+      "properties": {
+        "type": {
+          "const": "underover"
+        },
+        "base": {
+          "$ref": "#/$defs/node"
+        },
+        "under": {
+          "$ref": "#/$defs/node"
+        },
+        "over": {
+          "$ref": "#/$defs/node"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

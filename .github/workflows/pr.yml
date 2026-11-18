@@ -1,0 +1,28 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - name: MathIR schema gate (blocks Phase 6 without it)
+        run: pnpm --filter @mathpipe/document-model test
+      - name: DOCX/OMML smoke fixtures
+        run: echo "Phase 8 wires OMML fixtures here"
+      - name: Security / dependency scan
+        run: pnpm audit --audit-level=high

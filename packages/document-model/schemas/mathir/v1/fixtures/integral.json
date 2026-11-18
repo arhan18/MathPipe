@@ -1,0 +1,1 @@
+{"schemaVersion": "1.0", "root": {"type": "limit", "base": {"type": "operator", "symbol": "∫", "children": [{"type": "text", "value": "f(x)"}, {"type": "text", "value": "dx"}]}, "lower": {"type": "text", "value": "0"}, "upper": {"type": "text", "value": "1"}}}
