@@ -29,4 +29,5 @@ if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
   exit 1
 fi
 
+cd "$PROC"
 exec "$PROC/.venv/bin/python" -m worker.service --poll 10

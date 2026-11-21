@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CheckIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import { CheckIcon, CrossCircledIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 
 export interface PricingFeature {
   name: string;
@@ -14,6 +14,10 @@ export interface PricingFeature {
 export interface PricingTier {
   name: string;
   price: number;
+  /** Display symbol for the price, e.g. "$" or "₹". Defaults to "$". */
+  priceSymbol?: string;
+  /** BCP-47 locale for grouping digits, e.g. "en-IN". Defaults to "en-US". */
+  priceLocale?: string;
   interval?: string;
   description: string;
   features: PricingFeature[];
@@ -89,7 +93,8 @@ export function PricingCards({
                         tier.highlight ? "text-white" : "text-neutral-900 dark:text-white",
                       )}
                     >
-                      ${tier.price}
+                      {tier.priceSymbol ?? "$"}
+                      {tier.price.toLocaleString(tier.priceLocale ?? "en-US")}
                     </span>
                     <span
                       className={cn(
@@ -125,7 +130,7 @@ export function PricingCards({
                             : "text-neutral-300 dark:text-neutral-700",
                         )}
                       >
-                        <CheckIcon className="w-3.5 h-3.5" />
+                        {feature.included ? <CheckIcon className="w-3.5 h-3.5" /> : <CrossCircledIcon className="w-3.5 h-3.5" />}
                       </div>
                       <span
                         className={cn(

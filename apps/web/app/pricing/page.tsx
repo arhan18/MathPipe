@@ -1,9 +1,11 @@
 import { PricingCards } from "@/components/ui/pricing-cards";
-import { TIERS } from "@/lib/plans";
+import { tiersForCountry } from "@/lib/plans";
+import { resolveCountry } from "@/lib/region";
 
 export const metadata = { title: "Pricing" };
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const tiers = tiersForCountry(await resolveCountry());
   return (
     <>
       <div className="mx-auto max-w-5xl px-4 pt-16 text-center">
@@ -13,7 +15,7 @@ export default function PricingPage() {
           Prices are launch drafts and lock at checkout.
         </p>
       </div>
-      <PricingCards tiers={TIERS} className="md:grid-cols-2 lg:grid-cols-4" />
+      <PricingCards tiers={tiers} className="md:grid-cols-2 lg:grid-cols-4" />
     </>
   );
 }

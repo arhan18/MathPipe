@@ -51,11 +51,25 @@ export async function GET(request: NextRequest) {
     },
   );
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
     return NextResponse.redirect(
       loginUrl(url.origin, "Could not complete sign in. The link may have expired."),
     );
+  }
+
+  // New auth users need a profiles row before they can own jobs or a
+  // subscription. The DB trigger is not applied in every environment, so
+  // bootstrap here as well (idempotent, service role).
+  if (data.user) {
+    const { isDbConfigured, createServiceClient, ensureProfile } = await import("@mathpipe/db");
+    if (isDbConfigured()) {
+      try {
+        await ensureProfile(createServiceClient(), data.user.id, data.user.email?.split("@")[0] ?? null);
+      } catch (err) {
+        console.error("profile_bootstrap_failed", { userId: data.user.id, message: (err as Error).message });
+      }
+    }
   }
 
   return response;

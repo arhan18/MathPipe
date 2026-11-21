@@ -366,9 +366,13 @@ def drain(limit: int = 5) -> int:
     return done
 
 
-def _requeue_stalled(db: Supabase) -> None:
-    """A crash mid-job leaves a row in a working state forever. Re-queue it."""
-    cutoff = datetime.fromtimestamp(time.time() - STALL_SECONDS, timezone.utc).isoformat()
+def _requeue_stalled(db: Supabase, cutoff_seconds: int | None = None) -> None:
+    """A crash mid-job leaves a row in a working state forever. Re-queue it.
+
+    cutoff_seconds=0 means requeue immediately; default is the poller stall age.
+    """
+    cutoff_seconds = STALL_SECONDS if cutoff_seconds is None else cutoff_seconds
+    cutoff = datetime.fromtimestamp(time.time() - cutoff_seconds, timezone.utc).isoformat().replace("+00:00", "Z")
     _, rows = db.rest(
         "GET",
         "conversion_jobs",
@@ -459,6 +463,12 @@ def main() -> int:
         _http(args.serve)
         return 0
     if args.once:
+        # Crash recovery: --once shares the --poll requeue pass so a run that
+        # dies mid-job does not leave rows stuck in working states.
+        try:
+            _requeue_stalled(Supabase(), cutoff_seconds=0)
+        except Exception:
+            pass
         return 0 if drain(args.limit) >= 0 else 1
     if args.poll:
         db = Supabase()

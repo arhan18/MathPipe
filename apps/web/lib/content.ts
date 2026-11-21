@@ -14,7 +14,7 @@ export const ARTICLES: Article[] = [
     section: "blog",
     title: "How to convert a math PDF to editable Word without retyping",
     description:
-      "The practical workflow: pick the right pages, choose Standard or Verified, and check the equations that matter before you trust the file.",
+      "The practical workflow: pick the right pages, convert with Standard, and check the equations that matter before you trust the file.",
     body: [
       {
         heading: "Convert only what you need",
@@ -27,7 +27,7 @@ export const ARTICLES: Article[] = [
         heading: "Check three things before trusting the file",
         paragraphs: [
           "First, click three equations and edit a character in each. Second, confirm every figure is present and captioned. Third, scroll the whole document once for reading order — especially in two-column papers.",
-          "Verified mode automates the first pass: it re-checks low-confidence regions against the source and repairs what it can prove, flagging the rest instead of guessing.",
+          "Verified mode is coming soon. Today, Standard conversion keeps every equation editable, so you can spot-check the ones that matter yourself.",
         ],
       },
     ],

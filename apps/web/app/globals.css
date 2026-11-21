@@ -81,6 +81,22 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* Mobile: dock overflows with icon labels + actions at 390px. Hide the
+   label spans and keep only Convert + Dashboard so the header fits. */
+@media (max-width: 640px) {
+  .mp-header .atd-modern__dock .atd-modern__item:nth-child(2),
+  .mp-header .atd-modern__dock .atd-modern__item:nth-child(3),
+  .mp-header .atd-modern__dock .atd-modern__item:nth-child(4) {
+    display: none;
+  }
+  .mp-header .atd-modern__dock .atd-modern__item span:not(.atd-modern__icon) {
+    display: none;
+  }
+  .mp-header .atd-modern__actions .atd-modern__ghost {
+    display: none;
+  }
+}
+
 /* Ghost renders as a link here (authored CSS targets a <button>), so restore
    the action-height box with flex centering to match the CTA. */
 .mp-header .atd-modern__ghost {

@@ -40,6 +40,7 @@ export function isAuthConfigured(): boolean {
 
 export interface AuthedUser {
   id: string;
+  email: string | null;
 }
 
 export async function requireUser(): Promise<{ user: AuthedUser } | { response: NextResponse }> {
@@ -56,7 +57,7 @@ export async function requireUser(): Promise<{ user: AuthedUser } | { response: 
   if (!data.user) {
     return { response: apiError("INVALID_INPUT", "Sign in required.", newRequestId(), undefined, 401) };
   }
-  return { user: { id: data.user.id } };
+  return { user: { id: data.user.id, email: data.user.email ?? null } };
 }
 
 export function apiError(code: string, message: string, requestId: string, details?: Record<string, unknown>, statusOverride?: number) {

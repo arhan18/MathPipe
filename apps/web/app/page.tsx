@@ -7,7 +7,8 @@ import { ChromeButton } from "@/components/mathpipe/ChromeButton";
 import { LoupeCompare } from "@/components/mathpipe/LoupeCompare";
 import { ChromaHeadline } from "@/components/mathpipe/ChromaHeadline";
 import { PricingCards } from "@/components/ui/pricing-cards";
-import { TIERS } from "@/lib/plans";
+import { tiersForCountry } from "@/lib/plans";
+import { resolveCountry } from "@/lib/region";
 import { SoftwareAppJsonLd } from "@/components/seo-landing";
 import { canonical } from "@/lib/seo";
 
@@ -44,11 +45,12 @@ const FEATURES = [
 
 const STEPS = [
   { icon: MousePointer2, title: "Drop your PDF", body: "Drag in a math-heavy PDF. We validate pages and size instantly." },
-  { icon: FileCheck2, title: "Pick a mode", body: "Standard for speed, Verified for an AI-checked, repaired result." },
+  { icon: FileCheck2, title: "Pick a mode", body: "Standard for speed. Verified checking is coming soon." },
   { icon: ArrowUpRight, title: "Download Word", body: "An editable .docx with native equations, tables and figures." },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const tiers = tiersForCountry(await resolveCountry());
   return (
     <>
       <SoftwareAppJsonLd />
@@ -79,15 +81,13 @@ export default function HomePage() {
             </div>
             <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/10 pt-6 text-sm">
               <div>
-                <dt className="sr-only">Equations per document</dt>
-                <dd><span className="font-display text-2xl text-white">147</span> <span className="text-neutral-400">equations / doc avg</span></dd>
+                <dt className="sr-only">Native output</dt>
+                <dd><span className="font-display text-2xl text-white">OMML</span> <span className="text-neutral-400">editable math in Word</span></dd>
+                <dt className="sr-only">Quality</dt>
+                <dd><span className="font-display text-2xl text-white">Exact</span> <span className="text-neutral-400">typeset, not images</span></dd>
               </div>
               <div>
-                <dt className="sr-only">Output format</dt>
-                <dd><span className="font-display text-2xl text-white">OMML</span> <span className="text-neutral-400">native output</span></dd>
-              </div>
-              <div>
-                <dt className="sr-only">Retention</dt>
+                <dt className="sr-only">Storage</dt>
                 <dd><span className="font-display text-2xl text-white">Auto</span> <span className="text-neutral-400">file deletion</span></dd>
               </div>
             </dl>
@@ -202,7 +202,7 @@ export default function HomePage() {
             Free tastes the magic. Paid plans scale with your teaching, studying, or publishing.
           </p>
         </div>
-        <PricingCards tiers={TIERS} containerClassName="max-w-7xl" className="gap-6 md:grid-cols-2 xl:grid-cols-4" />
+        <PricingCards tiers={tiers} containerClassName="max-w-7xl" className="gap-6 md:grid-cols-2 xl:grid-cols-4" />
       </section>
 
       {/* Final CTA */}
