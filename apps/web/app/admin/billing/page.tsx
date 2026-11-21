@@ -4,17 +4,17 @@ import { AdminShell } from "../gate";
 export const metadata = { title: "Admin · Billing" };
 export const dynamic = "force-dynamic";
 
-interface BillingRow { id: string; plan_id: string; status: string; period_end: string | null; emails: string[]; }
+interface BillingRow { id: string; plan_id: string; status: string; period_end: string | null; emails: string[]; dodo_subscription_id: string | null; }
 
 export default async function AdminBillingPage() {
   const rows: BillingRow[] = [];
   if (isDbConfigured()) {
     const db = createServiceClient();
-    const { data } = await db.from("subscriptions").select("id,plan_id,status,current_period_end,user_id").order("created_at", { ascending: false }).limit(50);
+    const { data } = await db.from("subscriptions").select("id,plan_id,status,current_period_end,dodo_customer_id,dodo_subscription_id,user_id").order("created_at", { ascending: false }).limit(50);
     const profiles = (await db.from("profiles").select("id,email").limit(500)).data ?? [];
     const emailByProfile = new Map((profiles as Array<{ id: string; email: string | null }>).filter((p) => p.email).map((p) => [p.id, p.email as string]));
-    for (const s of (data ?? []) as Array<{ id: string; plan_id: string; status: string; current_period_end: string | null; user_id: string }>) {
-      rows.push({ id: s.id, plan_id: s.plan_id, status: s.status, period_end: s.current_period_end, emails: [emailByProfile.get(s.user_id) ?? s.user_id.slice(0, 8)] });
+    for (const s of (data ?? []) as Array<{ id: string; plan_id: string; status: string; current_period_end: string | null; user_id: string; dodo_customer_id: string | null; dodo_subscription_id: string | null }>) {
+      rows.push({ id: s.id, plan_id: s.plan_id, status: s.status, period_end: s.current_period_end, emails: [emailByProfile.get(s.user_id) ?? s.user_id.slice(0, 8)], dodo_subscription_id: s.dodo_subscription_id ?? null });
     }
   }
 
@@ -26,7 +26,7 @@ export default async function AdminBillingPage() {
         <div className="mt-6 overflow-x-auto rounded-xl border border-white/10">
           <table className="w-full text-left text-sm">
             <thead className="text-neutral-400 border-b border-white/10">
-              <tr><th className="px-4 py-3">User</th><th className="px-4 py-3">Plan</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Expires</th></tr>
+              <tr><th className="px-4 py-3">User</th><th className="px-4 py-3">Plan</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Dodo sub</th><th className="px-4 py-3">Expires</th></tr>
             </thead>
             <tbody>
               {rows.map((r) => (
@@ -34,10 +34,10 @@ export default async function AdminBillingPage() {
                   <td className="px-4 py-3 font-medium">{r.emails[0]}</td>
                   <td className="px-4 py-3">{r.plan_id}</td>
                   <td className="px-4 py-3">{r.status}</td>
-                  <td className="px-4 py-3">{r.period_end ? new Date(r.period_end).toLocaleDateString() : "—"}</td>
+                  <td className="px-4 py-3 font-mono text-xs">{r.dodo_subscription_id ?? "—"}</td><td className="px-4 py-3">{r.period_end ? new Date(r.period_end).toLocaleDateString() : "—"}</td>
                 </tr>
               ))}
-              {rows.length === 0 && <tr><td className="px-4 py-6 text-neutral-500" colSpan={4}>{isDbConfigured() ? "No subscriptions yet" : "Database not connected."}</td></tr>}
+              {rows.length === 0 && <tr><td className="px-4 py-6 text-neutral-500" colSpan={5}>{isDbConfigured() ? "No subscriptions yet" : "Database not connected."}</td></tr>}
             </tbody>
           </table>
         </div>
