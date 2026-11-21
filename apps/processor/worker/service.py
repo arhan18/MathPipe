@@ -172,10 +172,38 @@ def _record_event(db: Supabase, job: dict, stage: str, message: str, **payload) 
         print(f"[event] {exc.code} {exc.reason}", flush=True)
 
 
+def _notify_failure(job: dict, code: str, message: str) -> None:
+    """Alert the operator (aqeel) by email when a job fails, best-effort."""
+    key = _env("RESEND_API_KEY")
+    frm = _env("RESEND_FROM") or "MathPipe <hello@arhanahmad.com>"
+    to = _env("ALERT_EMAILS") or "aqeelbrh65@gmail.com"
+    if not key:
+        return
+    try:
+        import json as _json
+        import urllib.request as _req
+        import urllib.error as _err
+        body = _json.dumps({
+            "to": [t.strip() for t in to.split(",") if t.strip()],
+            "from": frm,
+            "subject": f"MathPipe job failed: {code}",
+            "text": f"Job {job.get('id')} failed: {code}\n{message}\nUser: {job.get('user_id')}",
+            "headers": {"reply-to": "hello@arhanahmad.com"},
+        }).encode()
+        r = _req.Request("https://api.resend.com/emails", data=body, method="POST",
+                         headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+        with _req.urlopen(r, timeout=15) as res:
+            res.read()
+            print(f"[alert] job failure sent (resend {res.status})", flush=True)
+    except Exception as e:  # noqa: BLE001 - alerting must never kill the job
+        print(f"[alert] job failure mail failed: {e}", flush=True)
+
+
 def _fail(db: Supabase, job: dict, code: str, message: str, retryable: bool) -> None:
     _advance(db, job, "failed", error_code=code, retryable=retryable)
     _record_event(db, job, "failed", message, errorCode=code, retryable=retryable)
     print(f"[fail] {job['id']} {code}: {message}", flush=True)
+    _notify_failure(job, code, message)
 
 
 def _claim(db: Supabase, job_id: str | None = None) -> dict | None:
